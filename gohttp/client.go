@@ -2,7 +2,9 @@ package gohttp
 
 import "net/http"
 
-type httpClient struct{}
+type httpClient struct {
+	Headers http.Header
+}
 
 type HttpClient interface {
 	Get(u string, h http.Header) (*http.Response, error)
@@ -10,6 +12,7 @@ type HttpClient interface {
 	Put(u string, h http.Header, b interface{}) (*http.Response, error)
 	Patch(u string, h http.Header, b interface{}) (*http.Response, error)
 	Delete(u string, h http.Header) (*http.Response, error)
+	SetHeaders(h http.Header)
 }
 
 func New() HttpClient {
@@ -17,6 +20,10 @@ func New() HttpClient {
 	return client
 }
 
+func (c *httpClient) SetHeaders(h http.Header) {
+	c.Headers = h
+
+}
 func (c *httpClient) Get(u string, h http.Header) (*http.Response, error) {
 	return c.do(http.MethodGet, u, h, nil)
 }

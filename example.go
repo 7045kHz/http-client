@@ -45,14 +45,25 @@ type GitHub struct {
 }
 
 var (
-	httpClient = gohttp.New()
+	httpClient = getGithubClient()
 )
 
+func getGithubClient() gohttp.HttpClient {
+	client := gohttp.New()
+	commonHeaders := make(http.Header)
+	commonHeaders.Set("Content-Type", "application/json ; charset=utf-8")
+	client.SetHeaders(commonHeaders)
+	return client
+}
 func main() {
-	//client := gohttp.New()
-	headers := make(http.Header)
-	headers.Set("Authorization", "Bearer ABC-123")
-	response, err := httpClient.Get("https://api.github.com", headers)
+	getGitAPI()
+	getGitAPI()
+	getGitAPI()
+
+}
+func getGitAPI() {
+
+	response, err := getGithubClient().Get("https://api.github.com", nil)
 	if err != nil {
 		panic(err)
 	}
