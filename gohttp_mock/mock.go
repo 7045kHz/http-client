@@ -2,8 +2,9 @@ package gohttp_mock
 
 import (
 	"fmt"
-	"github.com/federicoleon/go-httpclient/core"
 	"net/http"
+
+	"github.com/7045kHz/http-client/gohttp/core"
 )
 
 // Mock structure provides a clean way to configure HTTP mocks based on

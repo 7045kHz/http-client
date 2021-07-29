@@ -1,8 +1,9 @@
 package gohttp
 
 import (
-	"github.com/federicoleon/go-httpclient/gomime"
 	"net/http"
+
+	"github.com/7045kHz/http-client/gohttp/gomime"
 )
 
 func getHeaders(headers ...http.Header) http.Header {

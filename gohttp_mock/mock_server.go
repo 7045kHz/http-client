@@ -3,9 +3,10 @@ package gohttp_mock
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"github.com/federicoleon/go-httpclient/core"
 	"strings"
 	"sync"
+
+	"github.com/7045kHz/http-client/gohttp/core"
 )
 
 var (

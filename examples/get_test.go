@@ -3,11 +3,12 @@ package examples
 import (
 	"errors"
 	"fmt"
-	"github.com/federicoleon/go-httpclient/gohttp_mock"
 	"net/http"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/7045kHz/http-client/gohttp/gohttp_mock"
 )
 
 func TestMain(m *testing.M) {

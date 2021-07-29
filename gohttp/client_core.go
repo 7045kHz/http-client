@@ -5,14 +5,15 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
-	"github.com/federicoleon/go-httpclient/core"
-	"github.com/federicoleon/go-httpclient/gohttp_mock"
-	"github.com/federicoleon/go-httpclient/gomime"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/7045kHz/http-client/gohttp/core"
+	"github.com/7045kHz/http-client/gohttp/gohttp_mock"
+	"github.com/7045kHz/http-client/gohttp/gomime"
 )
 
 const (

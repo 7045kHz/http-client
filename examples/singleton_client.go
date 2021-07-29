@@ -1,10 +1,11 @@
 package examples
 
 import (
-	"github.com/federicoleon/go-httpclient/gohttp"
-	"github.com/federicoleon/go-httpclient/gomime"
 	"net/http"
 	"time"
+
+	"github.com/7045kHz/http-client/gohttp/gohttp"
+	"github.com/7045kHz/http-client/gohttp/gomime"
 )
 
 var (
