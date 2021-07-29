@@ -2,6 +2,10 @@
 
 A production-ready HTTP client in Go with lots of useful features and using nothing more than the standard library of the language.
 
+## Modifications from Training Class
+Not my original code - working through a class from 
+[link](https://github.com/federicoleon/go-httpclient)https://github.com/federicoleon/go-httpclient
+
 ## Installation
 
 ```bash
