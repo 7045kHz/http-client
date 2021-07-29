@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"github.com/7045kHz/http-client/gohttp"
 )
@@ -43,13 +44,19 @@ type GitHub struct {
 	UserRepositoriesURL              string `json:"user_repositories_url"`
 	UserSearchURL                    string `json:"user_search_url"`
 }
+type User struct {
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+}
 
 var (
-	httpClient = getGithubClient()
+	githubClient = getGithubClient()
 )
 
 func getGithubClient() gohttp.HttpClient {
 	client := gohttp.New()
+	client.SetConnectionTimeout(2 * time.Second)
+	client.SetRequestTimeout(50 * time.Millisecond)
 	commonHeaders := make(http.Header)
 	commonHeaders.Set("Content-Type", "application/json ; charset=utf-8")
 	client.SetHeaders(commonHeaders)
@@ -57,10 +64,32 @@ func getGithubClient() gohttp.HttpClient {
 }
 func main() {
 	getGitAPI()
-	getGitAPI()
-	getGitAPI()
+	//createUser()
 
 }
+func createUser(user User) {
+
+	response, err := githubClient.Post("https://api.github.com", nil, user)
+	if err != nil {
+		panic(err)
+	}
+	defer response.Body.Close()
+	bytes, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		fmt.Println("Read: ", err)
+	}
+	var p GitHub
+	err = json.Unmarshal(bytes, &p)
+	if err != nil {
+		panic(err)
+	}
+	j, _ := json.MarshalIndent(p, "", "    ")
+	fmt.Printf("%v\n", response.StatusCode)
+	fmt.Printf("%s\n\n\n\n", j)
+	fmt.Printf("%s\n", p.UserURL)
+
+}
+
 func getGitAPI() {
 
 	response, err := getGithubClient().Get("https://api.github.com", nil)
