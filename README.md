@@ -13,7 +13,7 @@ require github.com/7045kHz/http-client/gohttp
 In order to use the library for making HTTP calls you need to import the corresponding HTTP package:
 
 ```go
-import "github.com/7045kHz/http-client/gohttp/gohttp"
+import "github.com/7045kHz/http-client/gohttp"
 ```
 
 ## Configuring the client
@@ -134,7 +134,7 @@ The library provides a convenient package for mocking requests and getting a par
 In order to use the mocking features you need to import the corresponding package:
 
 ```go
-import "github.com/7045kHz/http-client/gohttp/gohttp_mock"
+import "github.com/7045kHz/http-client/gohttp_mock"
 ```
 
 ### Starting the mock server:

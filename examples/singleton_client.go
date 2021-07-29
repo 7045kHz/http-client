@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/7045kHz/http-client/gohttp/gohttp"
-	"github.com/7045kHz/http-client/gohttp/gomime"
+	"github.com/7045kHz/http-client/gohttp"
+	" github.com/7045kHz/http-client/gomime"
 )
 
 var (

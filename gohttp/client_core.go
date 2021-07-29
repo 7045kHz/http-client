@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/7045kHz/http-client/gohttp/core"
-	"github.com/7045kHz/http-client/gohttp/gohttp_mock"
-	"github.com/7045kHz/http-client/gohttp/gomime"
+	" github.com/7045kHz/http-client/gomime"
+	"github.com/7045kHz/http-client/gohttp_mock"
 )
 
 const (
