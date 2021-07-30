@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/7045kHz/http-client/gohttp/core"
+	"github.com/7045kHz/http-client/core"
 )
 
 // Mock structure provides a clean way to configure HTTP mocks based on

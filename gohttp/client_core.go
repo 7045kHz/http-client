@@ -11,9 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/7045kHz/http-client/gohttp/core"
+	"github.com/7045kHz/http-client/core"
 	"github.com/7045kHz/http-client/gohttp_mock"
 	"github.com/7045kHz/http-client/gomime"
+	"github.com/Azure/go-ntlmssp"
 )
 
 const (
@@ -69,13 +70,26 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 		}
 		c.client = &http.Client{
 			Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
-			Transport: &http.Transport{
-				MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
-				ResponseHeaderTimeout: c.getResponseTimeout(),
-				DialContext: (&net.Dialer{
-					Timeout: c.getConnectionTimeout(),
-				}).DialContext,
+			//Transport: &http.Transport{
+			Transport: ntlmssp.Negotiator{
+				RoundTripper: &http.Transport{
+					MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
+					ResponseHeaderTimeout: c.getResponseTimeout(),
+					DialContext: (&net.Dialer{
+						Timeout: c.getConnectionTimeout(),
+					}).DialContext,
+				},
 			},
+			/*
+				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
+				Transport: &http.Transport{
+					//	RoundTripper:          &http.Transport{},
+					MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
+					ResponseHeaderTimeout: c.getResponseTimeout(),
+					DialContext: (&net.Dialer{
+						Timeout: c.getConnectionTimeout(),
+					}).DialContext,
+				},*/
 		}
 	})
 	return c.client

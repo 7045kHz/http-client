@@ -2,6 +2,7 @@ package core
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"net/http"
 )
 
@@ -22,4 +23,8 @@ func (r *Response) String() string {
 
 func (r *Response) UnmarshalJson(target interface{}) error {
 	return json.Unmarshal(r.Bytes(), target)
+}
+
+func (r *Response) UnmarshalXml(target interface{}) error {
+	return xml.Unmarshal(r.Bytes(), target)
 }

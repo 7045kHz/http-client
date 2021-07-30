@@ -2,15 +2,17 @@
 
 A production-ready HTTP client in Go with lots of useful features and using nothing more than the standard library of the language.
 
-## Modifications from Training Class
-Not my original code - working through a class from 
-[link](https://github.com/federicoleon/go-httpclient)https://github.com/federicoleon/go-httpclient
+## About Original Source Location
+> This version has been modified to include NTLMv2 support. The original source can be found here: 
+[github.com/federicoleon/go-httpclient](github.com/federicoleon/go-httpclient) This was from an excellent class on creating http clients.  [https://www.udemy.com/course/how-to-develop-a-productive-http-client-in-golang-go](https://www.udemy.com/course/how-to-develop-a-productive-http-client-in-golang-go) 
 
+
+Future planned changes are to allow for a json config file to populate the client for running tests against API's.
 ## Installation
 
 ```bash
 # Go Modules
-require github.com/7045kHz/http-client/gohttp
+require github.com/7045kHz/http-client
 ```
 
 ## Usage

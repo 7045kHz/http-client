@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/7045kHz/http-client/gohttp/core"
+	"github.com/7045kHz/http-client/core"
 )
 
 type httpClient struct {
