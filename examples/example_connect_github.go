@@ -22,9 +22,7 @@ var (
 func main() {
 
 	GetEndpoints()
-	GetEndpoints()
-	GetEndpoints()
-	GetEndpoints()
+
 }
 func getHttpClient() gohttp.Client {
 	headers := make(http.Header)
