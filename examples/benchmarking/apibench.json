@@ -1,0 +1,25 @@
+{
+   "Events":[ 
+    {
+    "Name":"Benchmark: api github",
+    "Description":"Testing API Client Side Performance",
+    "Url":"https://api.github.com",
+    "Method":"GET",
+    "PayloadFile":"",
+    "SummaryOutputFile":"apibench-api-summary.out",
+    "BodyOutputFile":"apibench-api-summary.out",
+    "Headers":[{"Content-Type":"application/json;charset=utf-8"}]
+    },
+    {
+    "Name":"Benchmark: web github",
+    "Description":"Testing Webside Client Side Performance",
+    "Url":"https://www.github.com",
+    "Method":"GET",
+    "PayloadFile":"",
+    "SummaryOutputFile":"apibench-web-summary.out",
+    "BodyOutputFile":"apibench-web-summary.out",
+    "Headers":[{"Content-Type":"text/html;charset=utf-8"}]
+    }
+]
+ 
+}
