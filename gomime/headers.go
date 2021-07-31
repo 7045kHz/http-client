@@ -9,4 +9,5 @@ const (
 	ContentTypeOctetStream = "application/octet-stream"
 	ContentTypeSoap        = "application/soap+xml"
 	ContentTypeCsv         = "text/csv"
+	ContentTypeHtml        = "text/html;charset=UTF-8"
 )
