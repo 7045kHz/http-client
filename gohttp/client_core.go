@@ -70,7 +70,7 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 			c.client = c.builder.client
 			return
 		}
-		if c.builder.ntlm {
+		if c.getNtlm() {
 			log.Printf("Using NTLMv2 HTTP Client")
 			c.client = &http.Client{
 				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
