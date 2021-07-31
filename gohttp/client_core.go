@@ -69,27 +69,40 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 			return
 		}
 
-		c.client = &http.Client{
-			Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
-			Transport: ntlmssp.Negotiator{
-				RoundTripper: &http.Transport{
+		if c.builder.ntlm {
+			c.client = &http.Client{
+				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
+				Transport: ntlmssp.Negotiator{
+					RoundTripper: &http.Transport{
+						MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
+						ResponseHeaderTimeout: c.getResponseTimeout(),
+						DialContext: (&net.Dialer{
+							Timeout: c.getConnectionTimeout(),
+						}).DialContext,
+					},
+				},
+				/*
+
+					Transport: &http.Transport{
+						RoundTripper:          &http.Transport{},
+						MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
+						ResponseHeaderTimeout: c.getResponseTimeout(),
+						DialContext: (&net.Dialer{
+							Timeout: c.getConnectionTimeout(),
+						}).DialContext,
+					},*/
+			}
+		} else {
+			c.client = &http.Client{
+				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
+				Transport: &http.Transport{
 					MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
 					ResponseHeaderTimeout: c.getResponseTimeout(),
 					DialContext: (&net.Dialer{
 						Timeout: c.getConnectionTimeout(),
 					}).DialContext,
 				},
-			},
-			/*
-
-				Transport: &http.Transport{
-					RoundTripper:          &http.Transport{},
-					MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
-					ResponseHeaderTimeout: c.getResponseTimeout(),
-					DialContext: (&net.Dialer{
-						Timeout: c.getConnectionTimeout(),
-					}).DialContext,
-				},*/
+			}
 		}
 	})
 	return c.client
@@ -100,6 +113,9 @@ func (c *httpClient) getMaxIdleConnections() int {
 		return c.builder.maxIdleConnections
 	}
 	return defaultMaxIdleConnections
+}
+func (c *httpClient) getNtlm() bool {
+	return c.builder.ntlm
 }
 
 func (c *httpClient) getResponseTimeout() time.Duration {
