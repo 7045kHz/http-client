@@ -13,6 +13,7 @@ type ClientBuilder interface {
 	DisableTimeouts(disable bool) ClientBuilder
 	SetHttpClient(c *http.Client) ClientBuilder
 	SetUserAgent(userAgent string) ClientBuilder
+	SetNtlm(ntlm bool) ClientBuilder
 
 	Build() Client
 }
@@ -26,6 +27,7 @@ type clientBuilder struct {
 	baseUrl            string
 	client             *http.Client
 	userAgent          string
+	ntlm               bool
 }
 
 func NewBuilder() ClientBuilder {
@@ -72,5 +74,9 @@ func (c *clientBuilder) SetHttpClient(client *http.Client) ClientBuilder {
 
 func (c *clientBuilder) SetUserAgent(userAgent string) ClientBuilder {
 	c.userAgent = userAgent
+	return c
+}
+func (c *clientBuilder) SetNtlm(ntlm bool) ClientBuilder {
+	c.ntlm = false
 	return c
 }
