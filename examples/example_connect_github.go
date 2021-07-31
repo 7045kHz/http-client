@@ -32,7 +32,7 @@ func getHttpClient() gohttp.Client {
 		SetHeaders(headers).
 		SetConnectionTimeout(2 * time.Second).
 		SetResponseTimeout(3 * time.Second).
-		SetUserAgent("Fedes-Computer").
+		SetUserAgent("Test-Computer").
 		SetNtlm(true).
 		Build()
 	return client
