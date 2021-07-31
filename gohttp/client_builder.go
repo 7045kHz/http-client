@@ -77,6 +77,6 @@ func (c *clientBuilder) SetUserAgent(userAgent string) ClientBuilder {
 	return c
 }
 func (c *clientBuilder) SetNtlm(ntlm bool) ClientBuilder {
-	c.ntlm = false
+	c.ntlm = ntlm
 	return c
 }
