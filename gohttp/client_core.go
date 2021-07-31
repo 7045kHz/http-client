@@ -68,9 +68,9 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 			c.client = c.builder.client
 			return
 		}
+
 		c.client = &http.Client{
 			Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
-			//Transport: &http.Transport{
 			Transport: ntlmssp.Negotiator{
 				RoundTripper: &http.Transport{
 					MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
@@ -81,9 +81,9 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 				},
 			},
 			/*
-				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
+
 				Transport: &http.Transport{
-					//	RoundTripper:          &http.Transport{},
+					RoundTripper:          &http.Transport{},
 					MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
 					ResponseHeaderTimeout: c.getResponseTimeout(),
 					DialContext: (&net.Dialer{
