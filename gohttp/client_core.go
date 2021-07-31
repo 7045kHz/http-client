@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"io/ioutil"
+	"log"
 	"net"
 	"net/http"
 	"strings"
@@ -70,6 +71,7 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 		}
 
 		if c.builder.ntlm {
+			log.Printf("Setting up NTLM Client")
 			c.client = &http.Client{
 				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
 				Transport: ntlmssp.Negotiator{
@@ -93,6 +95,7 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 					},*/
 			}
 		} else {
+			log.Printf("Setting up NON-NTLM Client")
 			c.client = &http.Client{
 				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
 				Transport: &http.Transport{
