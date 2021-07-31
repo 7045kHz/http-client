@@ -69,9 +69,8 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 			c.client = c.builder.client
 			return
 		}
-
 		if c.builder.ntlm {
-			log.Printf("Setting up NTLM Client")
+			log.Printf("Using NTLMv2 HTTP Client")
 			c.client = &http.Client{
 				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
 				Transport: ntlmssp.Negotiator{
@@ -95,7 +94,7 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 					},*/
 			}
 		} else {
-			log.Printf("Setting up NON-NTLM Client")
+			log.Printf("Using NON-NTLMv2 HTTP Client")
 			c.client = &http.Client{
 				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
 				Transport: &http.Transport{
