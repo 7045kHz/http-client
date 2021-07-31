@@ -22,6 +22,7 @@ const (
 	defaultMaxIdleConnections = 5
 	defaultResponseTimeout    = 5 * time.Second
 	defaultConnectionTimeout  = 1 * time.Second
+	defaultNtlmSetting        = false
 )
 
 func (c *httpClient) do(method string, url string, headers http.Header, body interface{}) (*core.Response, error) {
@@ -117,7 +118,10 @@ func (c *httpClient) getMaxIdleConnections() int {
 	return defaultMaxIdleConnections
 }
 func (c *httpClient) getNtlm() bool {
-	return c.builder.ntlm
+	if c.builder.ntlm {
+		return c.builder.ntlm
+	}
+	return defaultNtlmSetting
 }
 
 func (c *httpClient) getResponseTimeout() time.Duration {
