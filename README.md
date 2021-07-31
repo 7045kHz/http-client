@@ -32,6 +32,9 @@ headers.Set("Some-Common-Header", "value-for-all-requests")
 // Create a new builder:
 client := gohttp.NewBuilder().
 
+	// You can set the client to use a version that supports NTLMv2 by SetNtlm(true)
+	SetNtlm(bool).
+	
 	// You can set global headers to be used in every request made by this client:
 	SetHeaders(headers).
 
