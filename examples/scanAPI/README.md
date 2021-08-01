@@ -50,7 +50,7 @@ Each endpoint gets it's own configuration, from Name, Description, Url, Method, 
 
 **About values and data saved**
 
-1. Set the URL clear when simple, URL Encoded for passing options.  Example: https://localhost:10443/api?name="momo" should be defined as  https%3A%2F%2Flocalhost%3A10443%2Fapi%3Fname%3Dmomo 
+1. Set the URL clear when simple, URL Encoded for passing options.  Example: ``https://localhost:10443/api?name="momo"`` should be defined as  ``https://localhost:10443/api?name=\"momo\""``. 
 
 2.  each run the SummaryOutputFile, and BodyOutputFile files will be overwritten. If you want to keep them, please copy to an alternate location before re-running.
 
@@ -102,7 +102,7 @@ cat config.json
     },    {
         "Name":"TLS Localhost",
         "Description":"Testing API Client Side Performance",
-        "Url":"https%3A%2F%2Flocalhost%3A10443%2Fapi%3Fname%3Dmomo",
+        "Url":"https://localhost:10443/api?name=\"momo\"",
         "Method":"POST",
         "PayloadFile":".\\localhost_post.json",
         "SummaryOutputFile":"local-api-summary.out",

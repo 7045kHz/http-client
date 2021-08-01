@@ -75,7 +75,10 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 			return
 		}
 		proxyUrl, _ := url.Parse(c.getProxyServer())
-		http.ProxyURL(proxyUrl)
+		//func setProxyMode(proxyUrl *url.URL, c *httpClient) *url.URL {
+
+		var trP *url.URL = setProxyMode(proxyUrl, c)
+
 		if c.getNtlm() {
 			log.Printf("Using NTLMv2 HTTP Client")
 			c.client = &http.Client{
@@ -83,7 +86,7 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 				Transport: ntlmssp.Negotiator{
 					RoundTripper: &http.Transport{
 						TLSClientConfig:       &tls.Config{InsecureSkipVerify: c.getTlsInsecureVerify()},
-						Proxy:                 http.ProxyURL(proxyUrl),
+						Proxy:                 http.ProxyURL(trP),
 						MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
 						ResponseHeaderTimeout: c.getResponseTimeout(),
 						DialContext: (&net.Dialer{
@@ -108,7 +111,7 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 			c.client = &http.Client{
 				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
 				Transport: &http.Transport{
-					Proxy:                 http.ProxyURL(proxyUrl),
+					Proxy:                 http.ProxyURL(trP),
 					TLSClientConfig:       &tls.Config{InsecureSkipVerify: c.getTlsInsecureVerify()},
 					MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
 					ResponseHeaderTimeout: c.getResponseTimeout(),
@@ -183,5 +186,13 @@ func (c *httpClient) getRequestBody(contentType string, body interface{}) ([]byt
 
 	default:
 		return json.Marshal(body)
+	}
+}
+func setProxyMode(proxyUrl *url.URL, c *httpClient) *url.URL {
+	if c.getProxyServer() == "" {
+		var v *url.URL = nil
+		return v
+	} else {
+		return proxyUrl
 	}
 }

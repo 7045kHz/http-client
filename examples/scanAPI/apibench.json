@@ -26,7 +26,7 @@
     },    {
         "Name":"TLS Localhost",
         "Description":"Testing API Client Side Performance",
-        "Url":"https%3A%2F%2Flocalhost%3A10443%2Fapi%3Fname%3Dmomo",
+        "Url":"https://localhost:10443/api?name=\"moo\"",
         "Method":"POST",
         "PayloadFile":".\\localhost_post.json",
         "SummaryOutputFile":"local-api-summary.out",
