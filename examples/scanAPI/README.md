@@ -38,7 +38,7 @@ Create a ``config.json`` file to define the core test name, and pointer to the f
 ```
 cat config.json
 {
-    "Name":"Github Web and API Benchmark",
+    "Name":"Github Web and API",
     "Description":"Testing API and Web Client Side Performance",
     "EndpointFile":"apibench.json"
 }
@@ -48,7 +48,11 @@ Create a json file, named as you like. In this example use  ``apibench.json``.  
 
 Each endpoint gets it's own configuration, from Name, Description, Url, Method, Optional PayloadFile, and Headers.  The output from the connection will be sent to SummaryOutputFile, and BodyOutputFile.  
 
-> Note: on each run the SummaryOutputFile, and BodyOutputFile files will be overwritten. If you want to keep them, please copy to an alternate location before re-running.
+**About values and data saved**
+
+1. Set the URL clear when simple, URL Encoded for passing options.  Example: https://localhost:10443/api?name="momo" should be defined as  https%3A%2F%2Flocalhost%3A10443%2Fapi%3Fname%3Dmomo 
+
+2.  each run the SummaryOutputFile, and BodyOutputFile files will be overwritten. If you want to keep them, please copy to an alternate location before re-running.
 
 ```
 {  
@@ -96,9 +100,9 @@ cat config.json
 
     ]
     },    {
-        "Name":"Localhost",
+        "Name":"TLS Localhost",
         "Description":"Testing API Client Side Performance",
-        "Url":"http://localhost:9090",
+        "Url":"https%3A%2F%2Flocalhost%3A10443%2Fapi%3Fname%3Dmomo",
         "Method":"POST",
         "PayloadFile":".\\localhost_post.json",
         "SummaryOutputFile":"local-api-summary.out",
