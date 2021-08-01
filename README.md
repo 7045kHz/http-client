@@ -7,7 +7,11 @@ A production-ready HTTP client in Go with lots of useful features and using noth
 [github.com/federicoleon/go-httpclient](github.com/federicoleon/go-httpclient) This was from an excellent class on creating http clients.  [https://www.udemy.com/course/how-to-develop-a-productive-http-client-in-golang-go](https://www.udemy.com/course/how-to-develop-a-productive-http-client-in-golang-go) 
 
 
-Future planned changes are to allow for a json config file to populate the client for running tests against API's.
+## About API Testing Code
+[API Testing Code](examples/benchmarking/README.md) has been added with diagnostic support to gather information about various endpoints. It allows you to create a list of End Points to connect against and save output from that End Point.
+
+This code is in flux and may be renamed.
+
 ## Installation
 
 ```bash
