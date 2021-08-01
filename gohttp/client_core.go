@@ -10,6 +10,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 
@@ -24,6 +25,8 @@ const (
 	defaultResponseTimeout    = 5 * time.Second
 	defaultConnectionTimeout  = 1 * time.Second
 	defaultNtlmSetting        = false
+	defaultTlsInsecure        = true
+	defaultProxyServer        = ""
 )
 
 func (c *httpClient) do(method string, url string, headers http.Header, body interface{}) (*core.Response, error) {
@@ -71,13 +74,16 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 			c.client = c.builder.client
 			return
 		}
+		proxyUrl, _ := url.Parse(c.getProxyServer())
+		http.ProxyURL(proxyUrl)
 		if c.getNtlm() {
 			log.Printf("Using NTLMv2 HTTP Client")
 			c.client = &http.Client{
 				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
 				Transport: ntlmssp.Negotiator{
 					RoundTripper: &http.Transport{
-						TLSClientConfig:       &tls.Config{InsecureSkipVerify: true},
+						TLSClientConfig:       &tls.Config{InsecureSkipVerify: c.getTlsInsecureVerify()},
+						Proxy:                 http.ProxyURL(proxyUrl),
 						MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
 						ResponseHeaderTimeout: c.getResponseTimeout(),
 						DialContext: (&net.Dialer{
@@ -97,11 +103,13 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 					},*/
 			}
 		} else {
+
 			log.Printf("Using NON-NTLMv2 HTTP Client")
 			c.client = &http.Client{
 				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
 				Transport: &http.Transport{
-					TLSClientConfig:       &tls.Config{InsecureSkipVerify: true},
+					Proxy:                 http.ProxyURL(proxyUrl),
+					TLSClientConfig:       &tls.Config{InsecureSkipVerify: c.getTlsInsecureVerify()},
 					MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
 					ResponseHeaderTimeout: c.getResponseTimeout(),
 					DialContext: (&net.Dialer{
@@ -125,6 +133,20 @@ func (c *httpClient) getNtlm() bool {
 		return c.builder.ntlm
 	}
 	return defaultNtlmSetting
+}
+
+func (c *httpClient) getTlsInsecureVerify() bool {
+	if c.builder.tls_insecure_verify {
+		return c.builder.tls_insecure_verify
+	}
+	return defaultTlsInsecure
+}
+
+func (c *httpClient) getProxyServer() string {
+	if c.builder.proxy != "" {
+		return c.builder.proxy
+	}
+	return defaultProxyServer
 }
 
 func (c *httpClient) getResponseTimeout() time.Duration {

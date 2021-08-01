@@ -39,6 +39,14 @@ client := gohttp.NewBuilder().
 	// You can set the client to use a version that supports NTLMv2 by SetNtlm(true).
 	// Default is false.
 	SetNtlm(bool).
+
+	// You can set the client to use TLS insecureskipverify, default set to (true).
+	// Default is false.
+	SetTlsInsecureVerify(bool).
+
+	// You can set the client to use a specific proxy server. Set the value to http(s)://proxy.hostname.example:port
+	// Default is false.
+	SetProxyServer(string).
 	
 	// You can set global headers to be used in every request made by this client:
 	SetHeaders(headers).

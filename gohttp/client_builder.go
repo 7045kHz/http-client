@@ -14,20 +14,24 @@ type ClientBuilder interface {
 	SetHttpClient(c *http.Client) ClientBuilder
 	SetUserAgent(userAgent string) ClientBuilder
 	SetNtlm(ntlm bool) ClientBuilder
+	SetProxyServer(proxy string) ClientBuilder
+	SetTlsInsecureVerify(tls_insecure bool) ClientBuilder
 
 	Build() Client
 }
 
 type clientBuilder struct {
-	headers            http.Header
-	maxIdleConnections int
-	connectionTimeout  time.Duration
-	responseTimeout    time.Duration
-	disableTimeouts    bool
-	baseUrl            string
-	client             *http.Client
-	userAgent          string
-	ntlm               bool
+	headers             http.Header
+	maxIdleConnections  int
+	connectionTimeout   time.Duration
+	responseTimeout     time.Duration
+	disableTimeouts     bool
+	baseUrl             string
+	client              *http.Client
+	userAgent           string
+	ntlm                bool
+	proxy               string
+	tls_insecure_verify bool
 }
 
 func NewBuilder() ClientBuilder {
@@ -78,5 +82,13 @@ func (c *clientBuilder) SetUserAgent(userAgent string) ClientBuilder {
 }
 func (c *clientBuilder) SetNtlm(ntlm bool) ClientBuilder {
 	c.ntlm = ntlm
+	return c
+}
+func (c *clientBuilder) SetProxyServer(proxy string) ClientBuilder {
+	c.proxy = proxy
+	return c
+}
+func (c *clientBuilder) SetTlsInsecureVerify(tls_insecure bool) ClientBuilder {
+	c.tls_insecure_verify = tls_insecure
 	return c
 }
