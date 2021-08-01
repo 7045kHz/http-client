@@ -8,11 +8,11 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/", tls_handler)
 	http.ListenAndServeTLS(":10443", "cert.pem", "key.pem", nil)
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func tls_handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Request at %v\n", time.Now())
 	fmt.Fprintf(w, "URL: %v\n", r.URL)
 	fmt.Fprintf(w, "Request at %v\n", time.Now())
@@ -20,7 +20,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Content Length: %v\n", r.ContentLength)
 	data, _ := ioutil.ReadAll(r.Body)
 	fmt.Fprintf(w, "Body: %v\n", string(data))
-	fmt.Fprintf(w, "TLS: %v\n", r.TLS)
+	//fmt.Fprintf(w, "TLS: %v\n", r.TLS)
+	fmt.Fprintf(w, "TLS Version: %v\n", r.TLS.Version)
+	fmt.Fprintf(w, "TLS Protocol: %v\n", r.TLS.NegotiatedProtocol)
 	fmt.Fprintf(w, "Host: %v\n", r.Host)
 	fmt.Fprintf(w, "URL User: %v\n", r.URL.User)
 	fmt.Fprintf(w, "Remove Address: %v\n", r.RemoteAddr)

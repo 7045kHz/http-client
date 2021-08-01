@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"time"
 
@@ -66,6 +67,7 @@ func main() {
 func RunEndPoints(E *Event) error {
 
 	for i := 0; i < len(E.Events); i++ {
+
 		fs, err := os.Create(E.Events[i].SummaryOutputFile)
 		if err != nil {
 			log.Printf("Could not create %s, %v\n", E.Events[i].SummaryOutputFile, err)
@@ -87,6 +89,11 @@ func RunEndPoints(E *Event) error {
 		fmt.Fprintf(fs, "Body Output File: %s\n", E.Events[i].BodyOutputFile)
 		fmt.Fprintf(fs, "Payload File: %s\n", E.Events[i].PayloadFile)
 		fmt.Fprintf(fs, "Custom Headers: [%d]\n", len(E.Events[i].Headers))
+		_, err = url.ParseRequestURI(E.Events[i].Url)
+		if err != nil {
+			fmt.Fprintf(fs, "Invalid URL defined for the End Point (%s): (%s)\n", E.Events[i].Name, E.Events[i].Url)
+			return err
+		}
 		headers := make(http.Header)
 		for ik := 0; ik < len(E.Events[i].Headers); ik++ {
 
@@ -151,6 +158,10 @@ func RunEndPoints(E *Event) error {
 		}()
 
 		//fmt.Println(response)
+		if response == nil {
+			fmt.Fprintf(fs, "%s Request Failed.\n", time.Now().UTC().String())
+			return err
+		}
 
 		/*
 			END SENDING DATA TO SERVER
@@ -241,7 +252,7 @@ func getHttpClient() gohttp.Client {
 		SetConnectionTimeout(2 * time.Second).
 		SetResponseTimeout(3 * time.Second).
 		SetUserAgent("Test-Computer").
-		SetNtlm(false).
+		SetNtlm(true).
 		Build()
 	return client
 }

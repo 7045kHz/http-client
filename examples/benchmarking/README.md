@@ -5,7 +5,17 @@ This example creates a client that will take JSON as a configuration source, and
 ## About Original Source Location
 > See main page for information on the client package. This section is unique to 7045kHz: 
  
- 
+## About TLS Settings
+Client is hard coded to Ignore Verify (for now). Test HTTP Server reports TLS version value. Table for decode is as follows:
+
+
+|TLS Version|Value Displayed in output body file|
+|:--------------:|:---------------:|
+|1.0|769|
+|1.1|770|
+|1.2|771|
+|1.3|772|
+
 ## Client Build Installation
 
 ```

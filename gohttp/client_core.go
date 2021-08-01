@@ -2,6 +2,7 @@ package gohttp
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"encoding/xml"
 	"errors"
@@ -76,6 +77,7 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
 				Transport: ntlmssp.Negotiator{
 					RoundTripper: &http.Transport{
+						TLSClientConfig:       &tls.Config{InsecureSkipVerify: true},
 						MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
 						ResponseHeaderTimeout: c.getResponseTimeout(),
 						DialContext: (&net.Dialer{
@@ -99,6 +101,7 @@ func (c *httpClient) getHttpClient() core.HttpClient {
 			c.client = &http.Client{
 				Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
 				Transport: &http.Transport{
+					TLSClientConfig:       &tls.Config{InsecureSkipVerify: true},
 					MaxIdleConnsPerHost:   c.getMaxIdleConnections(),
 					ResponseHeaderTimeout: c.getResponseTimeout(),
 					DialContext: (&net.Dialer{
