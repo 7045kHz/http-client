@@ -1,5 +1,6 @@
 {
    "Events":[ 
+
     {
     "Name":"Benchmark: api github",
     "Description":"Testing API Client Side Performance",
@@ -7,8 +8,8 @@
     "Method":"GET",
     "PayloadFile":"",
     "SummaryOutputFile":"apibench-api-summary.out",
-    "BodyOutputFile":"apibench-api-summary.out",
-    "Headers":[{"Content-Type":"application/json;charset=utf-8"}]
+    "BodyOutputFile":"apibench-api-body.out",
+    "Headers":[{"Header_Key":"Content-Type","Header_Value":"text/html;charset=utf-8"}]
     },
     {
     "Name":"Benchmark: web github",
@@ -17,8 +18,20 @@
     "Method":"GET",
     "PayloadFile":"",
     "SummaryOutputFile":"apibench-web-summary.out",
-    "BodyOutputFile":"apibench-web-summary.out",
-    "Headers":[{"Content-Type":"text/html;charset=utf-8"}]
+    "BodyOutputFile":"apibench-web-body.out",
+    "Headers":[
+        {"Header_Key":"Content-Type","Header_Value":"text/html;charset=utf-8"}
+
+    ]
+    },    {
+        "Name":"Localhost",
+        "Description":"Testing API Client Side Performance",
+        "Url":"http://localhost:9090",
+        "Method":"POST",
+        "PayloadFile":".\\localhost_post.json",
+        "SummaryOutputFile":"local-api-summary.out",
+        "BodyOutputFile":"local-api-body.out",
+        "Headers":[{"Header_Key":"Content-Type","Header_Value":"application/json;charset=utf-8"}]
     }
 ]
  
