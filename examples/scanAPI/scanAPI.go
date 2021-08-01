@@ -16,9 +16,11 @@ import (
 )
 
 type ConfigBenchmark struct {
-	Name         string `json:"name"`
-	Description  string `json:"description"`
-	EndpointFile string `json:"endpointfile"`
+	Name              string `json:"Name"`
+	Description       string `json:"Description"`
+	EndpointFile      string `json:"EndpointFile"`
+	TlsInsecureVerify bool   `json:"TlsInsecureVerify"`
+	Proxy             string `json:"Proxy"`
 }
 type Event struct {
 	Events []Endpoints `json:"Events"`
@@ -53,9 +55,11 @@ func main() {
 
 	log.Println("=================================================================================================")
 	log.Println()
-	log.Printf("Name:          %s\n", C.Name)
-	log.Printf("Description:   %s\n", C.Description)
-	log.Printf("Endpoint File: %s\n", C.EndpointFile)
+	log.Printf("Name:            %s\n", C.Name)
+	log.Printf("Description:     %s\n", C.Description)
+	log.Printf("Endpoint File:   %s\n", C.EndpointFile)
+	log.Printf("Insecure Verify: %v\n", C.TlsInsecureVerify)
+	log.Printf("Proxy Server:    %s\n", C.Proxy)
 	log.Println()
 	log.Println("=================================================================================================")
 	log.Println()
@@ -253,6 +257,8 @@ func getHttpClient() gohttp.Client {
 		SetResponseTimeout(3 * time.Second).
 		SetUserAgent("Test-Computer").
 		SetNtlm(true).
+		SetTlsInsecureVerify(true).
+		SetProxyServer("").
 		Build()
 	return client
 }

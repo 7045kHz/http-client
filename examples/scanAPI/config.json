@@ -1,5 +1,7 @@
 {
     "Name":"Github Web and API Benchmark",
     "Description":"Testing API and Web Client Side Performance",
-    "EndpointFile":"apibench.json"
+    "EndpointFile":"apibench.json",
+    "TlsInsecureVerify": true,
+    "Proxy":""
 }
