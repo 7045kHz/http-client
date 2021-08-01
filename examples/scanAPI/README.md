@@ -1,4 +1,4 @@
-# Go Example Benchmarking Client v0.1.1
+# Go Example scanAPI Client v0.1.1
  
 This example creates a client that will take JSON as a configuration source, and output critical connection details to summary and body output files.  Information is timestamped at each stage so you can see response times from a client perspective.
 
@@ -8,7 +8,7 @@ This example creates a client that will take JSON as a configuration source, and
 ## About TLS Settings
 Client is hard coded to Ignore Verify (for now). Test HTTP Server reports TLS version value. Table for decode is as follows:
 
-
+ 
 |TLS Version|Value Displayed in output body file|
 |:--------------:|:---------------:|
 |1.0|769|
@@ -19,7 +19,7 @@ Client is hard coded to Ignore Verify (for now). Test HTTP Server reports TLS ve
 ## Client Build Installation
 
 ```
-go build benchmarking.go
+go build scanAPI.go
 ```
 ## Build Installation for Optional HTTP Server.
 >This server does nothing more than report back details about the client connecting to it. It's used to test how a HTTP server would process your clients connection, including payload.
